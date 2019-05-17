@@ -1,9 +1,18 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>QR Code</ion-title>
+    <ion-title>Geniune</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <div text-center style="color: #000;">
+    <img src="../../assets/imgs/qr.svg" style="height:70%; width:70%" />
+  </div>
+  <h1>
+    <button ion-button id="Scanbtn" style="color:#FFFFFF" full (click)="barcodeScan()">QR SCAN</button>
+  </h1>
+  <p style="color: #000; font-size:12px;" text-center> * Click QR SCAN button to scan material QR Code * </p>
+
+  <span [innerHTML]="scanData"></span>
 
 </ion-content>

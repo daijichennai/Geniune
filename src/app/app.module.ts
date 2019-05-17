@@ -12,6 +12,10 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Sim } from '@ionic-native/sim';
 import { Device } from '@ionic-native/device';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { CommfunProvider } from '../providers/commfun/commfun';
+import { HttpClientModule } from '@angular/common/http';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -36,7 +41,10 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
     Sim,
     Device,
     UniqueDeviceID,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    InAppBrowser,
+    OpenNativeSettings,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CommfunProvider
   ]
 })
 export class AppModule {}

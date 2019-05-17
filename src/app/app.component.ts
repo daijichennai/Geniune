@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { Network } from '@ionic-native/network';
 import { HomePage } from '../pages/home/home';
 @Component({
   templateUrl: 'app.html'
@@ -10,13 +10,37 @@ import { HomePage } from '../pages/home/home';
 export class MyApp {
   rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+  constructor(
+        public platform: Platform,
+        public statusBar: StatusBar,
+        public splashScreen: SplashScreen,
+        public network: Network,
+        public alertCtrl: AlertController
+      )
+       {
+      platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
+        this.network.onDisconnect().subscribe(() => {
+          this.alertFn('Network is disconnected..!')
+        });
     });
+  }
+
+  alertFn(msg: string) {
+    let alt = this.alertCtrl.create({
+      title: 'Alert',
+      message: msg,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.platform.exitApp();
+          }
+        }
+      ]
+    });
+    alt.present();
   }
 }
 
