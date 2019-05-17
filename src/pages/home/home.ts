@@ -11,4 +11,12 @@ export class HomePage {
 
   }
 
+  goToQRCode(){
+    this.navCtrl.push('QrcodePage');
+  }
+
+  goToLog(){
+    this.navCtrl.push('LogPage');
+  }
+
 }

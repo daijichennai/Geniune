@@ -14,3 +14,18 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.card {
+  margin-left: -2px;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.title {
+  font-family: Poppins-Medium !important;
+}
+
+.bg-content {
+  background-color: #E8E8E8;
+  font-family: Poppins-Regular !important;
+}

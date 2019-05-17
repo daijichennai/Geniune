@@ -1,14 +1,36 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
-      Ionic Blank
+      Simpson Genuine
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="bg-content">
+
+  <ion-grid>
+    <ion-row text-center>
+      <ion-col col-6 (click)="goToQRCode()">
+        <ion-card>
+          <ion-card-header>
+            Genuine
+          </ion-card-header>
+          <ion-card-content>
+            <img src="../../assets/imgs/authentic.png" />
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 (click)="goToLog()">
+        <ion-card>
+          <ion-card-header>
+            Log
+          </ion-card-header>
+          <ion-card-content>
+            <img src="../../assets/imgs/logo.png" />
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
