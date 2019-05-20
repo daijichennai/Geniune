@@ -81,14 +81,26 @@ export class QrcodePage {
         console.log(result.length);
         this.MobileModel = this.device.model;
         this.MobileSerial = this.device.serial;
-        let optionsGPS = { timeout: 2000, enableHighAccuracy: true };
+        let optionsGPS = { 
+          timeout: 2000,
+          enableHighAccuracy: true 
+        };
         this.geolocation.getCurrentPosition(optionsGPS).then((resp) => {
 
           this.lat = resp.coords.latitude;
           this.long = resp.coords.longitude;
 
           var linkLog = this.myFunc.domainURL + 'WarrantyAppAPI/Genuine_log_API.php';
-          var LogmyData = JSON.stringify({ InvMasterId: this.splitted[1], InvDetailsId: this.splitted[2], MobileNumber: this.MobileNumber, MobileModel: this.MobileModel, MobileSerial: this.MobileSerial, Latitude: this.lat, Longitude: this.long, UniqueId: this.UniqueId });
+          var LogmyData = JSON.stringify({
+              InvMasterId: this.splitted[1],
+              InvDetailsId: this.splitted[2],
+              MobileNumber: this.MobileNumber,
+              MobileModel: this.MobileModel,
+              MobileSerial: this.MobileSerial,
+              Latitude: this.lat,
+              Longitude: this.long, 
+              UniqueId: this.UniqueId 
+          });
 
           this.http.post(linkLog, LogmyData, { responseType: 'text' }).subscribe(data => {
             //alert(JSON.stringify(data));
@@ -97,7 +109,15 @@ export class QrcodePage {
           });
           if (result.length == 0) {
             var link = this.myFunc.domainURL + 'WarrantyAppAPI/Geniune_API.php';
-            var myData = JSON.stringify({ InvMasterId: this.splitted[1], InvDetailsId: this.splitted[2], MobileNumber: this.MobileNumber, MobileModel: this.MobileModel, MobileSerial: this.MobileSerial, Latitude: this.lat, Longitude: this.long });
+            var myData = JSON.stringify({ 
+                InvMasterId: this.splitted[1],
+                InvDetailsId: this.splitted[2], 
+                MobileNumber: this.MobileNumber,
+                MobileModel: this.MobileModel,
+                MobileSerial: this.MobileSerial,
+                Latitude: this.lat,
+                Longitude: this.long 
+            });
 
             this.http.post(link, myData, { responseType: 'text' }).subscribe(data => {
               //alert(JSON.stringify(data));
