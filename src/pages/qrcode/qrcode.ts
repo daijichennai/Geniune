@@ -10,6 +10,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 import { CommfunProvider } from '../../providers/commfun/commfun';
+
 @IonicPage()
 @Component({
   selector: 'page-qrcode',
@@ -25,24 +26,25 @@ export class QrcodePage {
   public lat: any;
   public long: any;
   constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public http: HttpClient,
-        public sim: Sim,
-        public device: Device,
-        public barcodeScanner: BarcodeScanner,
-        public geolocation: Geolocation,
-        public alertCtrl: AlertController,
-        public uniqueDeviceID: UniqueDeviceID,
-        private iab: InAppBrowser,
-        public OpenNative: OpenNativeSettings,
-        public app: App, 
-        public myFunc:CommfunProvider
-    ) {
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public http: HttpClient,
+    public sim: Sim,
+    public device: Device,
+    public barcodeScanner: BarcodeScanner,
+    public geolocation: Geolocation,
+    public alertCtrl: AlertController,
+    public uniqueDeviceID: UniqueDeviceID,
+    private iab: InAppBrowser,
+    public OpenNative: OpenNativeSettings,
+    public app: App,
+    public myFunc: CommfunProvider,
+  ) {
   }
 
   ionViewDidLoad() {
     this.simInfo();
+
   }
 
   simInfo() {
@@ -62,11 +64,10 @@ export class QrcodePage {
       .catch((error: any) => console.log(error));
   }
 
-  barcodeScan(){
+  barcodeScan() {
     let options = {
       resultDisplayDuration: 0,
       showTorchButton: true,
-      showFlipCameraButton: true,
       prompt: "Scanning Your QR Code"
     };
 
@@ -81,9 +82,9 @@ export class QrcodePage {
         console.log(result.length);
         this.MobileModel = this.device.model;
         this.MobileSerial = this.device.serial;
-        let optionsGPS = { 
+        let optionsGPS = {
           timeout: 2000,
-          enableHighAccuracy: true 
+          enableHighAccuracy: true
         };
         this.geolocation.getCurrentPosition(optionsGPS).then((resp) => {
 
@@ -92,14 +93,14 @@ export class QrcodePage {
 
           var linkLog = this.myFunc.domainURL + 'WarrantyAppAPI/Genuine_log_API.php';
           var LogmyData = JSON.stringify({
-              InvMasterId: this.splitted[1],
-              InvDetailsId: this.splitted[2],
-              MobileNumber: this.MobileNumber,
-              MobileModel: this.MobileModel,
-              MobileSerial: this.MobileSerial,
-              Latitude: this.lat,
-              Longitude: this.long, 
-              UniqueId: this.UniqueId 
+            InvMasterId: this.splitted[1],
+            InvDetailsId: this.splitted[2],
+            MobileNumber: this.MobileNumber,
+            MobileModel: this.MobileModel,
+            MobileSerial: this.MobileSerial,
+            Latitude: this.lat,
+            Longitude: this.long,
+            UniqueId: this.UniqueId
           });
 
           this.http.post(linkLog, LogmyData, { responseType: 'text' }).subscribe(data => {
@@ -109,14 +110,14 @@ export class QrcodePage {
           });
           if (result.length == 0) {
             var link = this.myFunc.domainURL + 'WarrantyAppAPI/Geniune_API.php';
-            var myData = JSON.stringify({ 
-                InvMasterId: this.splitted[1],
-                InvDetailsId: this.splitted[2], 
-                MobileNumber: this.MobileNumber,
-                MobileModel: this.MobileModel,
-                MobileSerial: this.MobileSerial,
-                Latitude: this.lat,
-                Longitude: this.long 
+            var myData = JSON.stringify({
+              InvMasterId: this.splitted[1],
+              InvDetailsId: this.splitted[2],
+              MobileNumber: this.MobileNumber,
+              MobileModel: this.MobileModel,
+              MobileSerial: this.MobileSerial,
+              Latitude: this.lat,
+              Longitude: this.long
             });
 
             this.http.post(link, myData, { responseType: 'text' }).subscribe(data => {
@@ -130,6 +131,13 @@ export class QrcodePage {
             title: 'Alert',
             message: 'Enable Location And Scan..!',
             buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Cancel clicked');
+                }
+              },
               {
                 text: 'OK',
                 handler: () => {
