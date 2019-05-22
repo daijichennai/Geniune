@@ -33,7 +33,7 @@
     "@ionic-native/status-bar": "~4.20.0",
     "@ionic-native/unique-device-id": "^4.20.0",
     "@ionic/storage": "2.2.0",
-    "cordova-android": "7.1.4",
+    "cordova-android": "8.0.0",
     "cordova-open-native-settings": "1.5.2",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-geolocation": "4.0.1",
@@ -46,6 +46,7 @@
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-uniquedeviceid": "1.3.2",
     "cordova-plugin-whitelist": "^1.3.3",
+    "cordova.plugins.diagnostic": "4.0.12",
     "ionic-angular": "3.9.5",
     "ionicons": "3.0.0",
     "phonegap-plugin-barcodescanner": "8.0.1",
@@ -78,7 +79,10 @@
       "cordova-plugin-sim": {},
       "cordova-plugin-uniquedeviceid": {},
       "cordova-plugin-inappbrowser": {},
-      "cordova-open-native-settings": {}
+      "cordova-open-native-settings": {},
+      "cordova.plugins.diagnostic": {
+        "ANDROID_SUPPORT_VERSION": "28.+"
+      }
     },
     "platforms": [
       "android"

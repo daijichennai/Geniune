@@ -10,6 +10,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 import { CommfunProvider } from '../../providers/commfun/commfun';
+import { Diagnostic } from '@ionic-native/diagnostic';
 
 @IonicPage()
 @Component({
@@ -39,12 +40,22 @@ export class QrcodePage {
     public OpenNative: OpenNativeSettings,
     public app: App,
     public myFunc: CommfunProvider,
+    private diagnostic: Diagnostic
   ) {
   }
 
   ionViewDidLoad() {
     this.simInfo();
-
+    this.diagnostic.isLocationEnabled().then((enable)=>{
+      alert(enable);
+      if (!enable) {
+        this.OpenNative.open("location").then(val => {
+          //alert("location");
+        }).catch(err => {
+          alert(JSON.stringify(err));
+        })
+      }
+    });
   }
 
   simInfo() {
@@ -141,11 +152,11 @@ export class QrcodePage {
               {
                 text: 'OK',
                 handler: () => {
-                  this.OpenNative.open("location").then(val => {
-                    //alert("location");
-                  }).catch(err => {
-                    alert(JSON.stringify(err));
-                  })
+                  // this.OpenNative.open("location").then(val => {
+                  //   //alert("location");
+                  // }).catch(err => {
+                  //   alert(JSON.stringify(err));
+                  // })
                 }
               }
             ]

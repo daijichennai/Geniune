@@ -15,6 +15,7 @@ import { CommfunProvider } from '../providers/commfun/commfun';
 import { HttpClientModule } from '@angular/common/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
+import { Diagnostic } from '@ionic-native/diagnostic';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { OpenNativeSettings } from '@ionic-native/open-native-settings';
     UniqueDeviceID,
     InAppBrowser,
     OpenNativeSettings,
+    Diagnostic,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CommfunProvider
   ]
