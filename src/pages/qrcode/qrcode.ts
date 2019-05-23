@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, App, ToastController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -40,7 +40,8 @@ export class QrcodePage {
     public OpenNative: OpenNativeSettings,
     public app: App,
     public myFunc: CommfunProvider,
-    private diagnostic: Diagnostic
+    private diagnostic: Diagnostic,
+    private toastCtrl:ToastController
   ) {
   }
 
@@ -99,6 +100,16 @@ export class QrcodePage {
     };
 
     this.barcodeScanner.scan(options).then(barcodeData => {
+      if (barcodeData.cancelled) {
+        //alert('true');
+        this.toastCtrl.create({
+          message: 'Cancelling scan...',
+          duration: 2000
+        }).present();
+        return;
+      }
+
+
       this.scanData = barcodeData.text;
 
       this.splitted = this.scanData.split("&@");
