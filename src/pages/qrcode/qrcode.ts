@@ -46,16 +46,31 @@ export class QrcodePage {
 
   ionViewDidLoad() {
     this.simInfo();
-    this.diagnostic.isLocationEnabled().then((enable)=>{
-      alert(enable);
+    this.diagnostic.isLocationEnabled().then((enable) => {
       if (!enable) {
-        this.OpenNative.open("location").then(val => {
-          //alert("location");
-        }).catch(err => {
-          alert(JSON.stringify(err));
-        })
+        this.alertFn("Enable Location And Scan..!");
       }
     });
+  }
+
+  alertFn(msg: string) {
+    let alt = this.alertCtrl.create({
+      title: 'Alert',
+      message: msg,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.OpenNative.open("location").then(val => {
+              //alert("location");
+            }).catch(err => {
+              // alert(JSON.stringify(err));
+            });
+          }
+        }
+      ]
+    });
+    alt.present();
   }
 
   simInfo() {
@@ -76,6 +91,7 @@ export class QrcodePage {
   }
 
   barcodeScan() {
+    
     let options = {
       resultDisplayDuration: 0,
       showTorchButton: true,
@@ -138,46 +154,31 @@ export class QrcodePage {
             });
           }
         }).catch((error) => {
-          let altsuccess = this.alertCtrl.create({
-            title: 'Alert',
-            message: 'Enable Location And Scan..!',
-            buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                handler: () => {
-                  console.log('Cancel clicked');
-                }
-              },
-              {
-                text: 'OK',
-                handler: () => {
-                  // this.OpenNative.open("location").then(val => {
-                  //   //alert("location");
-                  // }).catch(err => {
-                  //   alert(JSON.stringify(err));
-                  // })
-                }
-              }
-            ]
-          });
-          altsuccess.present();
+          console.log(error);
           return false;
         });
 
-        const browser = this.iab.create(this.scanData, '_self', { location: 'no', zoom: 'no' });
+        const browser = this.iab.create(this.scanData, '_self', {
+          location: 'no',
+          zoom: 'no'
+        });
         browser.on('exit').subscribe(() => {
-          this.app.getRootNavs()[0].setRoot('HomePage');
+          this.navCtrl.setRoot('HomePage');
+          // this.app.getRootNavs()[0].setRoot('HomePage');
         }, err => {
-          this.app.getRootNavs()[0].setRoot('HomePage');
+            this.navCtrl.setRoot('HomePage');
+          //this.app.getRootNavs()[0].setRoot('HomePage');
         });
       }, (error) => {
         console.log(error);
-        const browser = this.iab.create(this.scanData, '_self', { location: 'no', zoom: 'no' });
+        const browser = this.iab.create(this.scanData, '_self', {
+           location: 'no', 
+           zoom: 'no' 
+          });
         browser.on('exit').subscribe(() => {
-          this.app.getRootNavs()[0].setRoot('HomePage');
+          this.navCtrl.setRoot('HomePage');
         }, err => {
-          this.app.getRootNavs()[0].setRoot('HomePage');
+          this.navCtrl.setRoot('HomePage');
         });
       });
 
