@@ -11,6 +11,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 import { CommfunProvider } from '../../providers/commfun/commfun';
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -45,6 +46,10 @@ export class QrcodePage {
   ) {
   }
 
+  goToHome() {
+    this.navCtrl.setRoot(HomePage);
+  }
+  
   ionViewDidLoad() {
     this.simInfo();
     this.diagnostic.isLocationEnabled().then((enable) => {

@@ -5,6 +5,7 @@ import { Device } from '@ionic-native/device';
 import { HttpClient } from '@angular/common/http';
 import { CommfunProvider } from '../../providers/commfun/commfun';
 import { Observable } from 'rxjs/Observable';
+import { HomePage } from '../home/home';
 @IonicPage()
 @Component({
   selector: 'page-log',
@@ -24,6 +25,11 @@ export class LogPage {
 
       ) {
   }
+
+  goToHome() {
+    this.navCtrl.setRoot(HomePage);
+  }
+
 
   ionViewDidLoad() {
     this.uniqueDeviceID.get().then((UniqueId: any) => {
