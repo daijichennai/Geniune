@@ -13,6 +13,8 @@ import { HomePage } from '../home/home';
 })
 export class LogPage {
   public logJson: any;
+  public isDataAvailable: boolean = false;
+
   constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -51,11 +53,16 @@ export class LogPage {
     loader.present().then(() => {
       data.subscribe(result => {
         console.log(result);
-        this.logJson = result;
+        if (result.length != 0) {
+          this.logJson = result;
+        } else {
+          this.isDataAvailable = true;
+        }         
         loader.dismiss();
       }, error => {
         loader.dismiss();
         console.log(error);
+          this.isDataAvailable = true;
         //alert(JSON.stringify(error));
       });
     });

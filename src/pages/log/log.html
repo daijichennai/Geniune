@@ -10,6 +10,9 @@
 </ion-header>
 
 <ion-content padding class="bg-content">
+    <div *ngIf="isDataAvailable" text-center padding-top>
+        <b style="font-size: 24px;color:red;">No Record Found</b>
+    </div>
     <ion-list *ngIf="logJson">
         <ion-list *ngFor="let l of logJson; index as i">
             <ion-card style="border-radius: 3px;">
