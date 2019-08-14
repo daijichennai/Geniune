@@ -114,9 +114,7 @@ export class QrcodePage {
         return;
       }
 
-
       this.scanData = barcodeData.text;
-
       this.splitted = this.scanData.split("&@");
 
       let data: Observable<any>;
@@ -174,10 +172,11 @@ export class QrcodePage {
           return false;
         });
 
-        const browser = this.iab.create(this.scanData, '_self', {
+        const browser = this.iab.create(barcodeData.text, '_self', {
           location: 'no',
           zoom: 'no'
         });
+        // alert("181 = " + barcodeData.text);
         browser.on('exit').subscribe(() => {
           this.navCtrl.setRoot('HomePage');
           // this.app.getRootNavs()[0].setRoot('HomePage');
@@ -187,7 +186,7 @@ export class QrcodePage {
         });
       }, (error) => {
         console.log(error);
-        const browser = this.iab.create(this.scanData, '_self', {
+        const browser = this.iab.create(barcodeData.text, '_self', {
            location: 'no', 
            zoom: 'no' 
           });
