@@ -115,10 +115,12 @@ export class QrcodePage {
       }
 
       this.scanData = barcodeData.text;
-      this.splitted = this.scanData.split("&@");
-
+      //this.splitted = this.scanData.split("&@");
+      this.splitted = this.scanData.split("/");
+      // alert(this.splitted[0]);
+      // alert(this.splitted[1]);
       let data: Observable<any>;
-      data = this.http.get(this.myFunc.domainURL + 'WarrantyAppAPI/GetQRDetails.php?InvMasterId=' + this.splitted[1] + '&InvDetailsId=' + this.splitted[2]);
+      data = this.http.get(this.myFunc.domainURL + 'WarrantyAppAPI/GetQRDetails.php?InvMasterId=' + this.splitted[0] + '&InvDetailsId=' + this.splitted[1]);
       data.subscribe(result => {
         console.log(result.length);
         this.MobileModel = this.device.model;
@@ -134,8 +136,8 @@ export class QrcodePage {
 
           var linkLog = this.myFunc.domainURL + 'WarrantyAppAPI/Genuine_log_API.php';
           var LogmyData = JSON.stringify({
-            InvMasterId: this.splitted[1],
-            InvDetailsId: this.splitted[2],
+            InvMasterId: this.splitted[0],
+            InvDetailsId: this.splitted[1],
             MobileNumber: this.MobileNumber,
             MobileModel: this.MobileModel,
             MobileSerial: this.MobileSerial,
@@ -152,8 +154,8 @@ export class QrcodePage {
           if (result.length == 0) {
             var link = this.myFunc.domainURL + 'WarrantyAppAPI/Geniune_API.php';
             var myData = JSON.stringify({
-              InvMasterId: this.splitted[1],
-              InvDetailsId: this.splitted[2],
+              InvMasterId: this.splitted[0],
+              InvDetailsId: this.splitted[1],
               MobileNumber: this.MobileNumber,
               MobileModel: this.MobileModel,
               MobileSerial: this.MobileSerial,
@@ -172,7 +174,7 @@ export class QrcodePage {
           return false;
         });
 
-        const browser = this.iab.create(barcodeData.text, '_self', {
+        const browser = this.iab.create(this.myFunc.domainURL + 'scanQrPopupImage.php?qrScan=' + barcodeData.text, '_self', {
           location: 'no',
           zoom: 'no'
         });
@@ -186,7 +188,7 @@ export class QrcodePage {
         });
       }, (error) => {
         console.log(error);
-        const browser = this.iab.create(barcodeData.text, '_self', {
+        const browser = this.iab.create(this.myFunc.domainURL + 'scanQrPopupImage.php?qrScan=' + barcodeData.text, '_self', {
            location: 'no', 
            zoom: 'no' 
           });
